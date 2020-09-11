@@ -18,12 +18,24 @@ export class Cell extends UI {
         return element;
     }
     toggleFlag() {
-        this.isFlag = !this.isFlag;
+        this.isFlagged = !this.isFlagged;
         this.element.classList.toggle('cell--is-flag');
     }
     revealCell() {
         this.isReveal = true;
         this.element.classList.remove('border--concave');
         this.element.classList.add('border--revealed');
+
+        if (this.isMine) {
+            this.element.classList.add('cell--is-mine');
+            return;
+        }
+        if (this.value) {
+            this.element.textContent = this.value;
+            this.element.classList.add(`cell-info-${this.value}`)
+        }
+    }
+    addMine() {
+        this.isMine = true;
     }
 }
